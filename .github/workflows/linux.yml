@@ -12,6 +12,7 @@ jobs:
         python-version: 3.8
     - name: Install dependencies
       run: |
+        sudo apt install -y xvfb x11-utils libxkbcommon-x11-0
         python -m pip install --upgrade pip
         pip install pyside2
     - name: Test
@@ -23,7 +24,7 @@ jobs:
     - name: chmod
       if: always()
       run: |
-        sudo chmod -R +rwx /var/crash
+        sudo chmod -R +rwx /var/crash/*
     - name: Upload artifacts
       if: always()
       uses: actions/upload-artifact@master
