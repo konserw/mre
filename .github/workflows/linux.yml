@@ -20,11 +20,13 @@ jobs:
         QT_DEBUG_PLUGINS: 1
       run: |
         ulimit -c unlimited
-        sudo catchsegv `which python` test.py
+        sudo catchsegv xvfb-run --auto-servernum `which python` test.py
     - name: chmod
       if: always()
       run: |
-        sudo chmod -R +rwx /var/crash/*
+        if [[ -d "$DIRECTORY" ]]; then
+          sudo chmod -R +rwx /var/crash
+        fi
     - name: Upload artifacts
       if: always()
       uses: actions/upload-artifact@master
