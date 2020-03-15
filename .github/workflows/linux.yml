@@ -14,13 +14,13 @@ jobs:
       run: |
         sudo apt install -y xvfb x11-utils libxkbcommon-x11-0
         python -m pip install --upgrade pip
-        pip install pyside2
+        pip install pyside2 pytest coverage pytest-qt
     - name: Test
       env:
         QT_DEBUG_PLUGINS: 1
       run: |
         ulimit -c unlimited
-        sudo catchsegv xvfb-run --auto-servernum `which python` test.py
+        sudo catchsegv xvfb-run --auto-servernum `which coverage` run -m pytest
     - name: chmod
       if: always()
       run: |
